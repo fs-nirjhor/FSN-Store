@@ -1,0 +1,11 @@
+.my-form .form-text {
+	color: red;
+	font-family: monospace;
+	display: block;
+	margin-bottom: 10px;
+}
+.my-form input, .form-textarea {
+	margin-bottom: 15px;
+	background: whitesmoke;
+	border: 0;
+}
