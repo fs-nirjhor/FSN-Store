@@ -4,7 +4,6 @@ import { Row, Accordion } from "react-bootstrap";
 
 const ProductCategory = (props) => {
   const { category, index } = props;
-  console.log(index);
   const [products, setProducts] = useState([]);
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/category/${category}`)

@@ -16,7 +16,7 @@ const ProductArea = () => {
   }, []);
   return (
     <section>
-     <Accordion defaultActiveKey={[0]} alwaysOpen>
+     <Accordion flush>
     {
     	categories.map((category, index) => <ProductCategory category={category} index={index} key={index}/>)
     }
