@@ -10,6 +10,7 @@ return (
 	  {
 	  	cart.map(product => <CartProduct product={product} key={product.id}/>)
 	  }
+	  <Button as={Link} to="/" size="sm" className="my-3">Add more</Button>
 	  <Pricing/>
 	  <Button variant="danger" className="d-block w-50 mx-auto my-3 ">Confirm Order</Button>
 	</div>
