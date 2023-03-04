@@ -1,6 +1,6 @@
 import ProductCategory from "../ProductCategory/ProductCategory";
 import { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Accordion } from "react-bootstrap";
 import {useSelector} from "react-redux" ;
 import { Link } from "react-router-dom";
 
@@ -16,9 +16,11 @@ const ProductArea = () => {
   }, []);
   return (
     <section>
+     <Accordion defaultActiveKey={[0]} alwaysOpen>
     {
-    	categories.map(category => <ProductCategory category={category} key={category}/>)
+    	categories.map((category, index) => <ProductCategory category={category} index={index} key={index}/>)
     }
+    </Accordion>
     <Button as={Link} to="/cart" 
     variant = {cart.length ? "danger" : "secondary"}
     disabled = {cart.length ? false : true}

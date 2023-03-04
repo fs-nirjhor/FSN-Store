@@ -1,31 +1,33 @@
 import { useState, useEffect } from "react";
 import Product from "../Product/Product";
-import { Row } from "react-bootstrap";
+import { Row, Accordion } from "react-bootstrap";
 
 const ProductCategory = (props) => {
-	const {category} = props;
-	const [products, setProducts] = useState([]);
-	useEffect(() => {
-		fetch(`https://fakestoreapi.com/products/category/${category}`)
-		.then(res => res.json())
-		.then(data => {
-			setProducts(data);
-		})
-		.catch(error => console.log(error));
-	}, [category]);
-return (
-	<section id={category} className="my-5">
-	<p className="d-flex justify-content-between bg-warning p-2 rounded">
-	  <span className="text-danger h1">{category.toUpperCase()}</span>
-	  <span className="text-primary h5" >See All</span>
-	</p>
-		<Row>
-		{
-			products.map(product => <Product product={product} key={product.id}/>)
-		}
-		</Row>
-	</section>
-);
+  const { category, index } = props;
+  console.log(index);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetch(`https://fakestoreapi.com/products/category/${category}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => console.log(error));
+  }, [category]);
+  return (
+    <Accordion.Item eventKey={index}>
+    <Accordion.Header>
+        <h4 className="text-danger">{category.toUpperCase()}</h4>
+    </Accordion.Header>
+     <Accordion.Body>
+      <Row>
+        {products.map((product) => (
+          <Product product={product} key={product.id} />
+        ))}
+      </Row>
+     </Accordion.Body>
+    </Accordion.Item>
+  );
 };
 
-export default ProductCategory;
+export default ProductCategory; 
