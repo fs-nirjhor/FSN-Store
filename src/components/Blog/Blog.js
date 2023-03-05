@@ -15,7 +15,7 @@ return (
 	<Row xs={1} md={2} lg={3}>
 		{
 			allBlogs.map(blog => 
-			<Col className="p-2">
+			<Col className="p-2" key={blog.id}>
 			   <Card className="p-2 h-100 shadow">
 			     <Card.Title className="text-center">{blog.title}</Card.Title>
 			     <Card.Body >{blog.body}</Card.Body>

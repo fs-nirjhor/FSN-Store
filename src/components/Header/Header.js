@@ -1,13 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import {useSelector} from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faDollar } from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 function Header() {
-	const [categories, setCategories] = useState([]);
-	const cart = useSelector(state => state.cart);
+  const [categories, setCategories] = useState([]);
+  const state = useSelector((state) => state);
+  const { loggedUser, cart, price } = state;
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/categories`)
       .then((res) => res.json())
@@ -15,37 +18,69 @@ function Header() {
         setCategories(data);
       });
   }, []);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLog = () => {
+    if (loggedUser.email) {
+      signOut(auth)
+        .then(() => {
+          dispatch({ type: "REMOVE_LOGGED_USER" });
+        })
+        .catch((error) => {
+          console.log(error.code);
+        });
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
-  	<nav className="sticky-top">
-    <Navbar bg="primary" variant="dark" expand="md">
-      <Container>
-        <Navbar.Brand as={NavLink} to="/" >
-        <span className="h1 text-danger bg-warning rounded-pill py-1 px-3 fst-italic">F S N</span>
-        </Navbar.Brand>
-        <Nav.Link as={NavLink} to="/cart" className="text-light">
-        <FontAwesomeIcon icon = {faShoppingCart}/> <b>{cart.length}</b>
-        </Nav.Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={NavLink} to="/">Home</Nav.Link>
-            <Nav.Link as={NavLink} to="/about">About</Nav.Link>
-            <Nav.Link as={NavLink} to="/blog">Blog</Nav.Link>
-            <Nav.Link as={NavLink} to="/contact">Contact</Nav.Link>
-            <NavDropdown title="Category" id="basic-nav-dropdown">
-              {
-              	categories.map(category => 
-              	<NavDropdown.Item key={category}>
-                {category}
-              </NavDropdown.Item>
-              	)
-              }
-            </NavDropdown>
-            <Nav.Link as={NavLink} to="/login" className="btn btn-danger text-white px-2">Login</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="sticky-top">
+      <Navbar bg="primary" variant="dark" expand="md">
+        <Container>
+          <Navbar.Brand as={NavLink} to="/">
+            <span className="h1 text-danger bg-warning rounded-pill py-1 px-3 fst-italic">
+              F S N
+            </span>
+          </Navbar.Brand>
+          <Nav.Link as={NavLink} to="/cart" className="text-light fw-bold">
+            <span>
+              <FontAwesomeIcon icon={faShoppingCart} /> {cart.length}
+            </span>
+            <span className="ms-3">
+              <FontAwesomeIcon icon={faDollar} /> {price.total}
+            </span>
+          </Nav.Link>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
+              <Nav.Link as={NavLink} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/about">
+                About
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/blog">
+                Blog
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/contact">
+                Contact
+              </Nav.Link>
+              <NavDropdown title="Category" id="basic-nav-dropdown">
+                {categories.map((category) => (
+                  <NavDropdown.Item key={category}>{category}</NavDropdown.Item>
+                ))}
+              </NavDropdown>
+              <Nav.Link
+                className="btn btn-danger text-white px-2"
+                onClick={handleLog}
+              >
+                {loggedUser.email ? "Logout" : "Login"}
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </nav>
   );
 }

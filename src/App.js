@@ -6,6 +6,7 @@ import About from "./components/About/About";
 import ProductArea from "./components/ProductArea/ProductArea";
 import Login from "./components/Login/Login";
 import Cart from "./components/Cart/Cart";
+import Pricing from "./components/Pricing/Pricing";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
 import {useSelector} from 'react-redux';
@@ -21,9 +22,11 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
+            
           <Route element={<PrivateRoute isValid={!!loggedUser.email} />}>
             <Route path="/blog" element={<Blog />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/pricing" element={<Pricing/>}/>
           </Route>
           <Route path="*" element={<NotFound/>} />
         </Route>

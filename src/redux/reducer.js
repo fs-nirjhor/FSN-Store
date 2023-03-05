@@ -32,6 +32,10 @@ const reducer = (state = initialState, action) => {
         email: action.user.email,
       };
       return { ...state, loggedUser: newUser };
+      
+    case 'REMOVE_LOGGED_USER':
+    	const removedUser = {} ;
+      return {...state, loggedUser: removedUser};
 
     case "ADD_TO_CART":
       const addedProduct = action.product;
