@@ -24,7 +24,7 @@ const ProductArea = () => {
     <Button as={Link} to="/cart" 
     variant = {cart.length ? "danger" : "secondary"}
     disabled = {cart.length ? false : true}
-    className="d-block w-50 mx-auto my-3 "
+    className="d-block w-75 mx-auto my-3 "
     >Place Order</Button>
     </section>
   );

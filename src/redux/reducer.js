@@ -1,7 +1,7 @@
 export const initialState = {
   loggedUser: {},
   cart: [],
-  price: {subtotal:0, tax:0, delivery:0, total:0},
+  price: { subtotal: 0, tax: 0, delivery: 0, total: 0 },
 };
 
 const newPrice = (cart) => {
@@ -11,9 +11,7 @@ const newPrice = (cart) => {
     0
   );
   const tax = subtotal * 0.1;
-  const delivery = subtotal >= 100 ? 0 
-  							: subtotal === 0 ? 0 
-  							: 5 ;
+  const delivery = subtotal >= 100 ? 0 : subtotal === 0 ? 0 : 5;
   const total = subtotal + tax + delivery;
   const newPrice = {
     subtotal: subtotal.toFixed(2),
@@ -32,10 +30,9 @@ const reducer = (state = initialState, action) => {
         email: action.user.email,
       };
       return { ...state, loggedUser: newUser };
-      
-    case 'REMOVE_LOGGED_USER':
-    	const removedUser = {} ;
-      return {...state, loggedUser: removedUser};
+
+    case "REMOVE_LOGGED_USER":
+      return { ...state, loggedUser: {} };
 
     case "ADD_TO_CART":
       const addedProduct = action.product;
@@ -78,6 +75,10 @@ const reducer = (state = initialState, action) => {
       }
       const decreasedPrice = newPrice(decreasedCart);
       return { ...state, cart: decreasedCart, price: decreasedPrice };
+
+    case "CLEAN_CART":
+      const cleanedPrice = { subtotal: 0, tax: 0, delivery: 0, total: 0 };
+      return { ...state, cart: [], price: cleanedPrice };
 
     default:
       return state;
