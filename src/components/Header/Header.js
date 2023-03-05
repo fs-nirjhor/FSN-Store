@@ -21,7 +21,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLog = () => {
-    if (loggedUser.email) {
+    if (loggedUser.name) {
       signOut(auth)
         .then(() => {
           dispatch({ type: "REMOVE_LOGGED_USER" });
@@ -75,7 +75,7 @@ function Header() {
                 className="btn btn-danger text-white px-2"
                 onClick={handleLog}
               >
-                {loggedUser.email ? "Logout" : "Login"}
+                {loggedUser.name ? "Logout" : "Login"}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

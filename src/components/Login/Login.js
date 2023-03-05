@@ -10,6 +10,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import {useDispatch} from "react-redux";
+import Line from "../Line/Line";
+import OtherLogin from "../OtherLogin/OtherLogin";
 
 function Login() {
 	const dispatch = useDispatch();
@@ -136,6 +138,8 @@ function Login() {
       </Form>
       <p className="mt-3 text-primary" onClick = { () => setHasAccount(!hasAccount) }> 
       Already have an account? </p>
+      <Line/>
+      <OtherLogin/>
     </section>
   );
 }

@@ -24,7 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             
-          <Route element={<PrivateRoute isValid={!!loggedUser.email} />}>
+          <Route element={<PrivateRoute isValid={!!loggedUser.name} />}>
             <Route path="/blog" element={<Blog />} />
             <Route path="/pricing" element={<Pricing/>}/>
           </Route>
