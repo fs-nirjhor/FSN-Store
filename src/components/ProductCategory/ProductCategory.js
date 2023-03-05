@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Product from "../Product/Product";
-import { Row, Accordion } from "react-bootstrap";
+import { Row, Accordion, Pagination } from "react-bootstrap";
 
 const ProductCategory = (props) => {
   const { category, index } = props;
@@ -24,6 +24,16 @@ const ProductCategory = (props) => {
           <Product product={product} key={product.id} />
         ))}
       </Row>
+      
+      <Pagination size="lg" className="justify-content-center my-3">
+      <Pagination.Prev disabled/>
+      <Pagination.Item active>{1}</Pagination.Item>
+      <Pagination.Item>{2}</Pagination.Item>
+      <Pagination.Ellipsis />
+      <Pagination.Item>{20}</Pagination.Item>
+      <Pagination.Next />
+    </Pagination>
+    
      </Accordion.Body>
     </Accordion.Item>
   );
