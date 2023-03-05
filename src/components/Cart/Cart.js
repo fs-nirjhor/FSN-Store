@@ -9,11 +9,12 @@ const Cart = () => {
 	const cart = useSelector(state => state.cart);
 return (
 	<div>
+	{cart.length === 0 && <h1 className="text-center">No Products Added</h1>}
 	  {
 	  	cart.map(product => <CartProduct product={product} key={product.id}/>)
 	  }
 	  <Button as={Link} to="/" size="sm" className="my-3">
-	 <FontAwesomeIcon icon={faAdd}/> Add more 
+	 <FontAwesomeIcon icon={faAdd}/> Add product 
 	  </Button>
 	  <Button as={Link} to="/pricing" variant="danger" className="d-block w-75 mx-auto my-3 ">Confirm Order</Button>
 	</div>
