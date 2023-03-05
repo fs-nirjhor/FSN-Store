@@ -35,6 +35,7 @@ function Login() {
       .catch((error) => {
         const errorCode = error.code;
         setErrorMessage(errorCode);
+        dispatch({type:"OPEN_POPUP", message: errorCode});
       });
   	}
   	if(!hasAccount){
@@ -45,10 +46,12 @@ function Login() {
         });
       //  const user = userCredential.user;
         setHasAccount(true);
+        dispatch({type:"OPEN_POPUP", message: "Account Created !"});
       })
       .catch((error) => {
         const errorCode = error.code;
         setErrorMessage(errorCode);
+        dispatch({type:"OPEN_POPUP", message: errorCode});
       });
   }
   };

@@ -2,8 +2,9 @@ export const initialState = {
   loggedUser: {},
   cart: [],
   price: { subtotal: 0, tax: 0, delivery: 0, total: 0 },
+  popup: { isOpen: false, message: "" },
 };
-
+// Manage Pricing
 const newPrice = (cart) => {
   const subtotal = cart.reduce(
     (currentSubtotal, product) =>
@@ -22,17 +23,20 @@ const newPrice = (cart) => {
   return newPrice;
 };
 
-const reducer = (state = initialState, action) => {
+// Reducer
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_LOGGED_USER":
       const newUser = {
         name: action.user.displayName,
         email: action.user.email,
       };
-      return { ...state, loggedUser: newUser };
+      const loggedPopup = { isOpen: true, message: `Welcome ${newUser.name}` };
+      return { ...state, loggedUser: newUser, popup: loggedPopup };
 
     case "REMOVE_LOGGED_USER":
-      return { ...state, loggedUser: {} };
+      const logoutPopup = { isOpen: true, message: "Logout Successful !" };
+      return { ...state, loggedUser: {}, popup: logoutPopup };
 
     case "ADD_TO_CART":
       const addedProduct = action.product;
@@ -78,7 +82,16 @@ const reducer = (state = initialState, action) => {
 
     case "CLEAN_CART":
       const cleanedPrice = { subtotal: 0, tax: 0, delivery: 0, total: 0 };
-      return { ...state, cart: [], price: cleanedPrice };
+      const payPopup = { isOpen: true, message: "Payment Successful !" };
+      return { ...state, cart: [], price: cleanedPrice, popup: payPopup };
+
+    case "OPEN_POPUP":
+      const openedPopup = { isOpen: true, message: action.message };
+      return { ...state, popup: openedPopup };
+
+    case "CLOSE_POPUP":
+      const closedPopup = { isOpen: false, message: "" };
+      return { ...state, popup: closedPopup };
 
     default:
       return state;

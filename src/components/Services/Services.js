@@ -14,7 +14,7 @@ const Services = () => {
 		
 return (
 	<div className="mt-5">
-		<h1>Why are you choose our service ?</h1>
+		<h1 className="text-center">Why are you choose our service ?</h1>
 		<Row >
 		 {
 		 	allServices.map(service => 

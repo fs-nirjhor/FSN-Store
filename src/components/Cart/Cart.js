@@ -9,7 +9,7 @@ const Cart = () => {
 	const cart = useSelector(state => state.cart);
 return (
 	<div>
-	{cart.length === 0 && <h1 className="text-center">No Products Added</h1>}
+	{cart.length === 0 && <h1 className="text-center my-5">No Products Added</h1>}
 	  {
 	  	cart.map(product => <CartProduct product={product} key={product.id}/>)
 	  }

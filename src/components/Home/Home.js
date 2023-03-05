@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import Slider from "../Slider/Slider";
 import Services from "../Services/Services";
 import Footer from "../Footer/Footer";
-import SearchBox from "../SearchBox/SearchBox";
+import Popup from "../Popup/Popup";
 
 const Home = () => {
   return (
@@ -12,11 +12,11 @@ const Home = () => {
       <Header />
       <Slider />
       <Container>
-        <SearchBox/>
         <Outlet />
         <Services />
       </Container>
       <Footer />
+      <Popup/>
     </>
   );
 };
