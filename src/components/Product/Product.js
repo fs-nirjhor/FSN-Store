@@ -23,7 +23,7 @@ function Product(props) {
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>Category: {category}</ListGroup.Item>
-        <ListGroup.Item>Stock: {rating.count}</ListGroup.Item>
+        <ListGroup.Item>Stock: {rating?.count}</ListGroup.Item>
         <ListGroup.Item><FontAwesomeIcon icon={faStar} className="text-warning"/> {rating?.rate}</ListGroup.Item>
         <ListGroup.Item className="h3 text-danger"><FontAwesomeIcon icon={faDollar}/> {price}</ListGroup.Item>
       </ListGroup>
