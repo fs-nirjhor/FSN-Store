@@ -45,7 +45,7 @@ export const reducer = (state = initialState, action) => {
         (product) => product.id === addedProduct.id
       );
       if (cartProduct) {
-        cartProduct.quantity = addedProduct.quantity + 1;
+        cartProduct.quantity = cartProduct.quantity + 1;
       } else {
         addedProduct.quantity = 1;
       }
