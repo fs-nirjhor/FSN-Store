@@ -15,14 +15,14 @@ function Slider() {
         {bannars.map((bannar,i) => (
           <Carousel.Item key={i}>
             <img
-              className="d-block img-fluid"
+              className="d-block w-100"
               src={bannar}
               alt="bannar"
             />
 
-            <Carousel.Caption className="text-dark bg-light bg-opacity-75 p-0 rounded-pill">
-              <h5>Welcome to Our Shop</h5>
-              <p>Buy our latest products with special discount offer.</p>
+            <Carousel.Caption className="text-dark bg-light bg-opacity-75 p-1 rounded-pill">
+              <h6>Welcome to Our Shop</h6>
+              <small>Buy our latest products with special discount offer.</small>
             </Carousel.Caption>
           </Carousel.Item>
         ))}
