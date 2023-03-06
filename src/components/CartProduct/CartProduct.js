@@ -21,7 +21,7 @@ return (
 		   <p className="ms-auto">
 		   <FontAwesomeIcon icon={faXmark} onClick = { () => dispatch({type:"REMOVE_FROM_CART", product}) } className="text-danger fs-1"/>
 		   </p>
-		   <p className="justify-self-center align-self-center fs-1">
+		   <p className="justify-self-center align-self-center fs-3">
 		     <FontAwesomeIcon icon={faMinus} onClick = { () => dispatch({type:"DECREASE_QUANTITY", product}) }
 		      className="btn btn-danger"
 		     	/>

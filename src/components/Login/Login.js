@@ -132,7 +132,7 @@ function Login() {
         </Form.Group>
         }
         <p className="text-danger font-monospace ">{errorMessage}</p>
-        <Button variant="danger" type="submit" className="w-100">
+        <Button variant="primary" type="submit" className="w-100">
           {hasAccount ? "Login" : "Signup"}
         </Button>
       </Form>

@@ -1,14 +1,16 @@
 
-import { Button, Card, ListGroup, Col } from "react-bootstrap";
+import { Button, Card, ListGroup, Col, Badge } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faStar, faDollar } from '@fortawesome/free-solid-svg-icons';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 
 function Product(props) {
-	const dispatch = useDispatch();
 	const {product} = props;
 	const {category, description, image, price, rating, title} = product ;
+	const dispatch = useDispatch();
+	const cart = useSelector(state => state.cart);
+	const cartProduct = cart.find(pd => pd.id === product.id);
 	const handleAdd = () => {
 		dispatch({type: "ADD_TO_CART", product});
 	};
@@ -30,6 +32,7 @@ function Product(props) {
         <Card.Footer className="p-0"> 
         <Button className="w-100" onClick = { handleAdd }	>
          <FontAwesomeIcon icon={faShoppingCart}/> Add to cart 
+         <Badge pill bg="danger" className="ms-3">{cartProduct?.quantity}</Badge>
         </Button>
         </Card.Footer>
     </Card>
