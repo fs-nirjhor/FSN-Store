@@ -1,38 +1,32 @@
-import Carousel from 'react-bootstrap/Carousel';
-import { useState, useEffect } from "react";
+import Carousel from "react-bootstrap/Carousel";
+import jeweleryBannar from "../../images/jeweleryBannar.jpeg";
+import menBannar from "../../images/menBannar.jpeg";
+import womenBannar from "../../images/womenBannar.jpeg";
+import shoesBannar from "../../images/shoesBannar.jpg";
+import electronicsBannar from "../../images/electronicsBannar.jpg";
+import electronicsBannarTwo from "../../images/electronicsBannarTwo.jpg";
 
 function Slider() {
-	const [latestProduct, setLatestProduct] = useState([]);
-	useEffect(() => {
-		fetch(`https://fakestoreapi.com/products/category/men's clothing`)
-		.then(res => res.json())
-		.then(data => {
-			setLatestProduct(data);
-		})
-		.catch(error => console.log(error));
-	}, []);
+	const bannars = [jeweleryBannar,electronicsBannarTwo,electronicsBannar,shoesBannar,menBannar, womenBannar];
+  
   return (
-  	<section className="mb-5">
-    <Carousel >
-      {
-      	latestProduct.map(product => 
-      	<Carousel.Item key={product.id}>
-        <img
-          className="d-block w-50 mx-auto"
-          src={product.image}
-          alt="Latest Product"
-        />
+    <section className="mb-5">
+      <Carousel>
+        {bannars.map((bannar,i) => (
+          <Carousel.Item key={i}>
+            <img
+              className="d-block img-fluid"
+              src={bannar}
+              alt="bannar"
+            />
 
-        <Carousel.Caption className="bg-secondary mx-auto rounded-pill text-light bg-opacity-75 px-5">
-          <h5>{product.title}</h5>
-          <p>
-            This is our brand new products of {product.category}.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      	)
-      }
-    </Carousel>
+            <Carousel.Caption className="text-dark bg-light bg-opacity-75 p-0 rounded-pill">
+              <h5>Welcome to Our Shop</h5>
+              <p>Buy our latest products with special discount offer.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
     </section>
   );
 }
