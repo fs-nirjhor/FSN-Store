@@ -21,9 +21,8 @@ const OtherLogin = () => {
     signInWithPopup(auth, provider)
       .then((userCredential) => {
         const user = userCredential.user;
-        dispatch({ type: "ADD_LOGGED_USER", user });
         navigate(location.state ? location.state.from : "/");
-        console.log(user);
+        dispatch({type: "OPEN_POPUP", message: `Welcome ${user.displayName}`});
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -38,7 +37,7 @@ const OtherLogin = () => {
         onClick={() => handleLogin(googleProvider)}
         className="my-3 mx-auto d-block w-75"
       >
-        <FontAwesomeIcon icon={faGoogle} className="me-3" /> Login with Google
+        <FontAwesomeIcon icon={faGoogle} className="me-3" /> Continue with Google
       </Button>
 
       <Button
@@ -46,7 +45,7 @@ const OtherLogin = () => {
         onClick={() => handleLogin(facebookProvider)}
         className="my-3 mx-auto d-block w-75"
       >
-        <FontAwesomeIcon icon={faFacebook} className="me-3" /> Login with
+        <FontAwesomeIcon icon={faFacebook} className="me-3" /> Continue with
         Facebook
       </Button>
     </div>

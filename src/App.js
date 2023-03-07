@@ -9,11 +9,11 @@ import Cart from "./components/Cart/Cart";
 import Pricing from "./components/Pricing/Pricing";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
-import {useSelector} from 'react-redux';
+import { auth } from "./firebaseConfig";
+import {useAuthState} from "react-firebase-hooks/auth" ;
 
 function App() {
-	const loggedUser = useSelector(state => state.loggedUser);
-		
+		const [user] = useAuthState(auth);
   return (
     <>
       <Routes>
@@ -24,7 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             
-          <Route element={<PrivateRoute isValid={!!loggedUser.name} />}>
+          <Route element={<PrivateRoute isValid={!!user} />}>
             <Route path="/blog" element={<Blog />} />
             <Route path="/pricing" element={<Pricing/>}/>
           </Route>

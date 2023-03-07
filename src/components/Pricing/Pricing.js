@@ -30,7 +30,7 @@ const Pricing = () => {
       ))}
       <Form className="mt-5" onSubmit={handlePay}>
         <Form.Control type="text" 
-        placeholder="Pickup Point" 
+        placeholder="Delivery Address" 
         className="my-3"
         required 
         />

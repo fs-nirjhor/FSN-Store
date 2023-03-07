@@ -1,5 +1,4 @@
 export const initialState = {
-  loggedUser: {},
   cart: [],
   price: { subtotal: 0, tax: 0, delivery: 0, total: 0 },
   popup: { isOpen: false, message: "" },
@@ -26,18 +25,6 @@ const newPrice = (cart) => {
 // Reducer
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_LOGGED_USER":
-      const newUser = {
-        name: action.user.displayName,
-        email: action.user.email,
-      };
-      const loggedPopup = { isOpen: true, message: `Welcome ${newUser.name}` };
-      return { ...state, loggedUser: newUser, popup: loggedPopup };
-
-    case "REMOVE_LOGGED_USER":
-      const logoutPopup = { isOpen: true, message: "Logout Successful !" };
-      return { ...state, loggedUser: {}, popup: logoutPopup };
-
     case "ADD_TO_CART":
       const addedProduct = action.product;
       const newCart = [...state.cart];

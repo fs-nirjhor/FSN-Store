@@ -6,11 +6,13 @@ import { faShoppingCart, faDollar } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import {useAuthState} from "react-firebase-hooks/auth" ;
 
 function Header() {
+	const [user] = useAuthState(auth);
   const [categories, setCategories] = useState([]);
   const state = useSelector((state) => state);
-  const { loggedUser, cart, price } = state;
+  const { cart, price } = state;
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/categories`)
       .then((res) => res.json())
@@ -21,13 +23,14 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLog = () => {
-    if (loggedUser.name) {
+    if (user) {
       signOut(auth)
         .then(() => {
           dispatch({ type: "REMOVE_LOGGED_USER" });
+          dispatch({type: "OPEN_POPUP", message: "Logout Successful !"});
         })
         .catch((error) => {
-          console.log(error.code);
+          dispatch({type: "OPEN_POPUP", message:error.code});
         });
     } else {
       navigate("/login");
@@ -75,7 +78,7 @@ function Header() {
                 className="btn btn-danger text-white px-2"
                 onClick={handleLog}
               >
-                {loggedUser.name ? "Logout" : "Login"}
+                {user ? "Logout" : "Login"}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

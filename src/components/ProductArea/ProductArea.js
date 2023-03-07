@@ -26,7 +26,7 @@ const ProductArea = () => {
     }
     </Accordion>
     <Button as={Link} to="/cart" 
-    variant = {cart.length ? "danger" : "secondary"}
+    variant = {cart.length ? "primary" : "secondary"}
     disabled = {cart.length ? false : true}
     className="d-block w-75 mx-auto my-3 "
     >Place Order</Button>

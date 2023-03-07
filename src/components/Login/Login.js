@@ -17,7 +17,6 @@ function Login() {
 	const dispatch = useDispatch();
   const location = useLocation();
 	const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
   const [hasAccount, setHasAccount] = useState(true);
   const {
     register,
@@ -27,32 +26,30 @@ function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
+  	const {name, email, password} = data ;
   	if (hasAccount) {
-  		 signInWithEmailAndPassword(auth, data.email, data.password)
+  		 signInWithEmailAndPassword(auth,email,password)
       .then((userCredential) => {
         const user = userCredential.user;
-        dispatch({type: "ADD_LOGGED_USER", user});
+       dispatch({type: "OPEN_POPUP", message: `Welcome ${user.displayName}`});
        navigate(location.state ? location.state.from : "/");
       })
       .catch((error) => {
         const errorCode = error.code;
-        setErrorMessage(errorCode);
         dispatch({type:"OPEN_POPUP", message: errorCode});
       });
   	}
   	if(!hasAccount){
-    createUserWithEmailAndPassword(auth, data.email, data.password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         updateProfile(auth.currentUser, {
-          displayName: data.name,
+          displayName: name,
         });
-      //  const user = userCredential.user;
+        dispatch({type:"OPEN_POPUP", message: `Congrats ${name}`});
         setHasAccount(true);
-        dispatch({type:"OPEN_POPUP", message: "Account Created !"});
       })
       .catch((error) => {
         const errorCode = error.code;
-        setErrorMessage(errorCode);
         dispatch({type:"OPEN_POPUP", message: errorCode});
       });
   }
@@ -65,14 +62,11 @@ function Login() {
         <Form.Group>
           <Form.Control
             type="text"
-            placeholder="Username"
-            {...register("name", { required: true, pattern: /^[a-zA-Z]{0,10}$/ })}
+            placeholder="Name"
+            {...register("name", { required: true })}
           />
           {errors.name && errors.name.type === "required" && (
             <Form.Text>This field is required</Form.Text>
-          )}
-          {errors.name && errors.name.type === "pattern" && (
-            <Form.Text>Username must have 10 or less English letter</Form.Text>
           )}
         </Form.Group>
       }
@@ -131,7 +125,6 @@ function Login() {
             )}
         </Form.Group>
         }
-        <p className="text-danger font-monospace ">{errorMessage}</p>
         <Button variant="primary" type="submit" className="w-100">
           {hasAccount ? "Login" : "Signup"}
         </Button>
