@@ -26,7 +26,7 @@ return (
 		      className="btn btn-danger"
 		     	/>
 		     <Badge bg="light" className="text-dark fw-bold mx-2">{quantity}</Badge>
-		     <FontAwesomeIcon icon={faPlus} onClick = { () => dispatch({type:"INCREASE_QUANTITY", product}) } className="btn btn-success"/>
+		     <FontAwesomeIcon icon={faPlus} onClick = { () => dispatch({type:"ADD_TO_CART", product}) } className="btn btn-success"/>
 		     </p>
 		   </Col>
 		</Row>
