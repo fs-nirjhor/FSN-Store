@@ -28,6 +28,7 @@ function Login() {
   const onSubmit = (data) => {
   	const {name, email, password} = data ;
   	if (hasAccount) {
+  		//Signin
   		 signInWithEmailAndPassword(auth,email,password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -40,6 +41,7 @@ function Login() {
       });
   	}
   	if(!hasAccount){
+  		//Signup
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         updateProfile(auth.currentUser, {
