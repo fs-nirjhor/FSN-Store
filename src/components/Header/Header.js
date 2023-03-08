@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import {useAuthState} from "react-firebase-hooks/auth" ;
+import Logo from "../Logo/Logo";
 
 function Header() {
 	const [user] = useAuthState(auth);
@@ -41,10 +42,8 @@ function Header() {
     <nav className="sticky-top">
       <Navbar bg="primary" variant="dark" expand="md">
         <Container>
-          <Navbar.Brand as={NavLink} to="/">
-            <span className="h1 text-danger bg-warning rounded-pill py-1 px-3 fst-italic">
-              F S N
-            </span>
+          <Navbar.Brand as={NavLink} to="/" >
+          <Logo/>
           </Navbar.Brand>
           <Nav.Link as={NavLink} to="/cart" className="text-light fw-bold">
             <span>
@@ -75,7 +74,7 @@ function Header() {
                 ))}
               </NavDropdown>
               <Nav.Link
-                className="btn btn-danger text-white px-2"
+                className="btn btn-danger text-white px-3 rounded-pill"
                 onClick={handleLog}
               >
                 {user ? "Logout" : "Login"}
