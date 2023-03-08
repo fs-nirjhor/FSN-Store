@@ -1,18 +1,22 @@
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { auth } from "../../firebaseConfig";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  GithubAuthProvider
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const OtherLogin = () => {
+	// Providers
   const googleProvider = new GoogleAuthProvider();
   const facebookProvider = new FacebookAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+  
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,25 +33,24 @@ const OtherLogin = () => {
         dispatch({ type: "OPEN_POPUP", message: errorCode });
       });
   };
-
+  const otherLogins = [
+  	{type: "Google", provider: googleProvider, icon: faGoogle, variant: "danger"},
+  	{type: "Facebook", provider: facebookProvider, icon: faFacebook, variant: "primary"},
+  	{type: "GitHub", provider: githubProvider, icon: faGithub, variant: "dark"}
+  	];
   return (
     <div>
-      <Button
-        variant="danger"
-        onClick={() => handleLogin(googleProvider)}
+    {
+    	otherLogins.map(login => 
+    	 <Button
+        variant= {login.variant}
+        onClick={() => handleLogin(login.provider)}
         className="my-3 mx-auto d-block w-75"
       >
-        <FontAwesomeIcon icon={faGoogle} className="me-3" /> Continue with Google
+        <FontAwesomeIcon icon={login.icon} className="me-3" /> Continue with {login.type}
       </Button>
-
-      <Button
-        variant="primary"
-        onClick={() => handleLogin(facebookProvider)}
-        className="my-3 mx-auto d-block w-75"
-      >
-        <FontAwesomeIcon icon={faFacebook} className="me-3" /> Continue with
-        Facebook
-      </Button>
+    	)
+    }
     </div>
   );
 };
