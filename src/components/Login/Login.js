@@ -12,6 +12,7 @@ import {
 import {useDispatch} from "react-redux";
 import Line from "../Line/Line";
 import OtherLogin from "../OtherLogin/OtherLogin";
+import Logo from "../Logo/Logo";
 
 function Login() {
 	const dispatch = useDispatch();
@@ -59,6 +60,9 @@ function Login() {
 
   return (
     <section className="my-form text-center mx-md-5 mb-5">
+    <div className="w-50 text-center mx-auto my-3 fs-1">
+    <Logo />
+    </div>
       <Form onSubmit={handleSubmit(onSubmit)} className="px-5">
       { !hasAccount && 
         <Form.Group>
