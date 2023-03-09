@@ -8,7 +8,7 @@ import Popup from "../Popup/Popup";
 
 const Home = () => {
   return (
-    <>
+    <main className="d-flex flex-column min-vh-100 align-content-between">
       <Header />
       <Slider />
       <Container>
@@ -17,7 +17,7 @@ const Home = () => {
       </Container>
       <Footer />
       <Popup/>
-    </>
+    </main>
   );
 };
 

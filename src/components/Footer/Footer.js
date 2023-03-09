@@ -4,7 +4,7 @@ import Logo from "../Logo/Logo";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-white p-3">
+    <footer className="bg-dark text-white p-3 mt-auto">
       <Container>
         <Row>
           <Col className="d-flex align-items-center">
