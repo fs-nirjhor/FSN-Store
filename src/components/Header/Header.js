@@ -1,16 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faDollar } from "@fortawesome/free-solid-svg-icons";
-import { useSelector, useDispatch } from "react-redux";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
-import {useAuthState} from "react-firebase-hooks/auth" ;
+import { useSelector } from "react-redux";
 import Logo from "../Logo/Logo";
+import NavLogButton from "../NavLogButton/NavLogButton";
 
 function Header() {
-	const [user] = useAuthState(auth);
   const [categories, setCategories] = useState([]);
   const state = useSelector((state) => state);
   const { cart, price } = state;
@@ -21,23 +18,7 @@ function Header() {
         setCategories(data);
       });
   }, []);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const handleLog = () => {
-    if (user) {
-      signOut(auth)
-        .then(() => {
-          dispatch({ type: "REMOVE_LOGGED_USER" });
-          dispatch({type: "OPEN_POPUP", message: "Logout Successful !"});
-        })
-        .catch((error) => {
-          dispatch({type: "OPEN_POPUP", message:error.code});
-        });
-    } else {
-      navigate("/login");
-    }
-  };
-
+  
   return (
     <nav className="sticky-top">
       <Navbar bg="primary" variant="dark" expand="md">
@@ -73,11 +54,8 @@ function Header() {
                   <NavDropdown.Item key={category}>{category}</NavDropdown.Item>
                 ))}
               </NavDropdown>
-              <Nav.Link
-                className="btn btn-danger text-white px-3 rounded-pill"
-                onClick={handleLog}
-              >
-                {user ? "Logout" : "Login"}
+              <Nav.Link>
+                <NavLogButton/>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
