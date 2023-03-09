@@ -59,7 +59,7 @@ function Login() {
   };
 
   return (
-    <section className="my-form text-center mx-md-5 mb-5">
+    <section className="my-form text-center mb-5 px-md-5 mx-md-5">
     <div className="w-50 text-center mx-auto my-3 fs-1">
     <Logo />
     </div>
