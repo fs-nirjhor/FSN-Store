@@ -1,13 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown, Button, Spinner } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faDollar } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import Logo from "../Logo/Logo";
-import NavLogButton from "../NavLogButton/NavLogButton";
+import { auth } from "../../firebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Header() {
+  const [user, loading] = useAuthState(auth);
   const [categories, setCategories] = useState([]);
   const state = useSelector((state) => state);
   const { cart, price } = state;
@@ -18,13 +20,13 @@ function Header() {
         setCategories(data);
       });
   }, []);
-  
+
   return (
     <nav className="sticky-top">
       <Navbar bg="primary" variant="dark" expand="md">
         <Container>
-          <Navbar.Brand as={NavLink} to="/" >
-          <Logo/>
+          <Navbar.Brand as={NavLink} to="/">
+            <Logo />
           </Navbar.Brand>
           <Nav.Link as={NavLink} to="/cart" className="text-light fw-bold">
             <span>
@@ -54,8 +56,20 @@ function Header() {
                   <NavDropdown.Item key={category}>{category}</NavDropdown.Item>
                 ))}
               </NavDropdown>
-              <Nav.Link>
-                <NavLogButton/>
+              <Nav.Link as={NavLink} to="/login">
+                <Button variant="danger" className="px-3 rounded-pill w-100 overflow-auto" >
+                  {loading ? 
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  : user ? user?.displayName
+                  : "Login" 
+                  }
+                </Button>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

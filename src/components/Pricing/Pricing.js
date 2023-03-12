@@ -13,7 +13,8 @@ const Pricing = () => {
     { type: "Delivery Fee", value: delivery },
     { type: "TOTAL", value: total },
   ];
-  const handlePay = () => {
+  const handlePay = (e) => {
+  	e.preventDefault();
     dispatch({ type: "CLEAN_CART" });
     navigate("/");
   };
